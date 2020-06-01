@@ -26,7 +26,7 @@
                 <button class="btn btn-dark my-4 rounded-circle font-weight-bold" @click="a++">
                     +
                 </button>
-                <span class="lead ml-4">{{computA}}</span>   
+                <span class="lead ml-2" v-show="a > 0">{{computA}}</span>   
                 <input class="form-control my-4" type="number" v-model="number" @keyup.13="output">
                 <p class="lead" v-show="result > 0"> Number * 10 = {{result}} </p>
                 <input class="form-control" type="text" v-model="input">
