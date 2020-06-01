@@ -20,12 +20,24 @@
 </head>
 
 <body>
-    <div id="root">
-        <h1>Hello {{name}}</h1>
-        <h2 v-show="true">Hi {{sayMyName('raloliver')}}</h2>
-        <pre v-html="html"></pre>
-        <a href="https://thispersondoesnotexist.com" target="_blank">
-            <img :src="photo.src" :alt="photo.alt" width="360">
+    <div id="root" class="container">
+        <div class="row">
+            <div class="col-6 p-4">
+                <input class="form-control" type="text" v-model="input">
+                <p class="legend">{{input}}</p>
+                <button class="btn btn-success my-4" @click="saySomething(input)" v-on:click="getEvent">Say what you
+                    write
+                    above</button>
+                <pre>{{event}}</pre>
+            </div>
+            <div class="col-6 p-4">
+                <h1>Hello {{name}}</h1>
+                <h2 v-show="true">Hi {{sayMyName('buddy')}}</h2>
+            </div>
+        </div>
+        <a class="d-flex align-items-center flex-column" href="https://thispersondoesnotexist.com" target="_blank">
+            <img class="img-fluid img-thumbnail" :src="photo.src" :alt="photo.alt" width="360">
+            <pre v-html="html"></pre>
         </a>
     </div>
 
@@ -37,38 +49,46 @@
                 version: 2,
                 framework: true,
                 attribute: [
-                    "v-show",
-                    "v-html",
-                    "v-bind",
+                    'v-show',
+                    'v-html',
+                    'v-bind',
 
                 ],
                 methods: [
                     {
-                        name: "v-model",
+                        name: 'v-model',
                         twoway: true,
                         id: 1
                     },
                     {
-                        name: ":",
+                        name: ':',
                         twoway: false,
                         id: 2
                     },
                     {
-                        name: "@",
+                        name: '@',
                         twoway: false,
                         id: 3
 
                     }
                 ],
-                html: "<p>String</p>",
+                html: '<p>Caption</p>',
                 photo: {
-                    src: "https://thispersondoesnotexist.com/image",
-                    alt: "This person does not exist"
-                }
+                    src: 'https://thispersondoesnotexist.com/image',
+                    alt: 'This person does not exist'
+                },
+                input: 'This is just a sample of 2 way db',
+                event: ''
             },
             methods: {
                 sayMyName: function (name) {
                     return name;
+                },
+                saySomething: function (something) {
+                    alert(something);
+                },
+                getEvent: function (event) {
+                    this.event = event.target.className;
                 }
             }
         })
