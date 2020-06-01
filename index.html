@@ -23,6 +23,13 @@
     <div id="root" class="container">
         <div class="row">
             <div class="col-6 p-4">
+                <select class="custom-select" v-model="select">
+                    <option value="0">Open this select menu</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                </select>
+                <p v-show="select > 0" class="lead">{{select}}</p>
                 <div class="input-group my-4">
                     <div class="input-group-prepend">
                         <div class="input-group-text">
@@ -117,7 +124,8 @@
                 a: 0,
                 success: false,
                 checkbox: true,
-                radio: ""
+                radio: "",
+                select: 0
             },
             methods: {
                 sayMyName: function (name) {
