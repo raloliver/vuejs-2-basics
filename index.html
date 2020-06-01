@@ -29,7 +29,7 @@
                             <input type="checkbox" v-model="checkbox">
                         </div>
                     </div>
-                    <input type="text" class="form-control" disabled v-model="checkbox">
+                    <input type="text" class="form-control" disabled :value="checkbox">
                 </div>
                 <ul class="my-4">
                     <li v-for="(attr, index) in attribute">{{index}} - {{attr}}</li>
