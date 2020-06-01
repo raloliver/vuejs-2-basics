@@ -23,6 +23,17 @@
     <div id="root" class="container">
         <div class="row">
             <div class="col-6 p-4">
+                <div class="input-group my-4">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <input type="radio" value="No" v-model="radio">
+                        </div>
+                        <div class="input-group-text">
+                            <input type="radio" value="Yes" v-model="radio">
+                        </div>
+                    </div>
+                    <input type="text" class="form-control" disabled :value="radio">
+                </div>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <div class="input-group-text">
@@ -105,7 +116,8 @@
                 result: null,
                 a: 0,
                 success: false,
-                checkbox: true
+                checkbox: true,
+                radio: ""
             },
             methods: {
                 sayMyName: function (name) {
