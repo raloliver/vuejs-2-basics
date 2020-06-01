@@ -23,7 +23,10 @@
     <div id="root">
         <h1>Hello {{name}}</h1>
         <h2 v-show="true">Hi {{sayMyName('raloliver')}}</h2>
-        <pre v-html="html">}</pre>
+        <pre v-html="html"></pre>
+        <a href="https://thispersondoesnotexist.com" target="_blank">
+            <img :src="photo.src" :alt="photo.alt" width="360">
+        </a>
     </div>
 
     <script>
@@ -57,7 +60,11 @@
 
                     }
                 ],
-                html: "<p>String</p>"
+                html: "<p>String</p>",
+                photo: {
+                    src: "https://thispersondoesnotexist.com/image",
+                    alt: "This person does not exist"
+                }
             },
             methods: {
                 sayMyName: function (name) {
