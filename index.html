@@ -21,13 +21,46 @@
 
 <body>
     <div id="root">
-        <h1>{{title}}</h1>
+        <h1>{{name}}</h1>
+        <h1>{{sayMyName('raloliver')}}</h1>
     </div>
+
     <script>
         new Vue({
             el: '#root',
             data: {
-                title: 'Hello Vue'
+                name: 'Vue',
+                version: 2,
+                framework: true,
+                attribute: [
+                    "v-show",
+                    "v-html",
+                    "v-bind",
+
+                ],
+                methods: [
+                    {
+                        name: "v-model",
+                        twoway: true,
+                        id: 1
+                    },
+                    {
+                        name: ":",
+                        twoway: false,
+                        id: 2
+                    },
+                    {
+                        name: "@",
+                        twoway: false,
+                        id: 3
+
+                    }
+                ]
+            },
+            methods: {
+                sayMyName: function (name) {
+                    return name;
+                }
             }
         })
     </script>
