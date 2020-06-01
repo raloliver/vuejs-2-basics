@@ -23,6 +23,22 @@
     <div id="root" class="container">
         <div class="row">
             <div class="col-6 p-4">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <input type="checkbox" v-model="checkbox">
+                        </div>
+                    </div>
+                    <input type="text" class="form-control" disabled v-model="checkbox">
+                </div>
+                <ul class="my-4">
+                    <li v-for="(attr, index) in attribute">{{index}} - {{attr}}</li>
+                    <li v-for="method in methods">{{method.name}}</li>
+                </ul>
+                <h1>Hello {{name}}</h1>
+                <h2 v-show="true">Hi {{sayMyName('buddy')}}</h2>
+            </div>
+            <div class="col-6 p-4">
                 <button class="btn" :class="{ 'btn-success': success }" @click="changeStyle">
                     Change Style
                 </button>
@@ -39,10 +55,6 @@
                     Say what you write above
                 </button>
                 <pre>{{event}}</pre>
-            </div>
-            <div class="col-6 p-4">
-                <h1>Hello {{name}}</h1>
-                <h2 v-show="true">Hi {{sayMyName('buddy')}}</h2>
             </div>
         </div>
         <a class="d-flex align-items-center flex-column" href="https://thispersondoesnotexist.com" target="_blank">
@@ -92,7 +104,8 @@
                 event: null,
                 result: null,
                 a: 0,
-                success: false
+                success: false,
+                checkbox: true
             },
             methods: {
                 sayMyName: function (name) {
