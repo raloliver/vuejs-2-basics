@@ -23,8 +23,10 @@
     <div id="root" class="container">
         <div class="row">
             <div class="col-6 p-4">
+                <input autofocus class="form-control my-4" type="number" v-model="number" @keyup.13="output">
+                <p class="lead" v-show="result > 0"> Number * 10 = {{result}} </p>
                 <input class="form-control" type="text" v-model="input">
-                <p class="legend">{{input}}</p>
+                <p class="lead"> {{input}} </p>
                 <button class="btn btn-success my-4" @click="saySomething(input)" v-on:click="getEvent">Say what you
                     write
                     above</button>
@@ -78,7 +80,9 @@
                     alt: 'This person does not exist'
                 },
                 input: 'This is just a sample of 2 way db',
-                event: ''
+                number: 0,
+                event: null,
+                result: null
             },
             methods: {
                 sayMyName: function (name) {
@@ -89,6 +93,9 @@
                 },
                 getEvent: function (event) {
                     this.event = event.target.className;
+                },
+                output: function () {
+                    this.result = this.number * 10;
                 }
             }
         })
