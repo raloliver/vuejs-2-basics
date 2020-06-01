@@ -35,8 +35,15 @@
                             </div>
                         </div>
                         <ul class="list-group">
-                            <li v-for="(item, index) in items" class="list-group-item">{{item.name}}
-                                <button class="btn btn-sm btn-light" @click="deleteItem(index)">Remove</button>
+                            <li v-for="(item, index) in items"
+                                class="list-group-item list-group-item-action flex-column align-items-start">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">{{item.name | capitalize}}</h5>
+                                    <small><button class="btn btn-sm btn-light"
+                                            @click="deleteItem(index)">Remove</button></small>
+                                </div>
+                                <p class="mb-1">The {{item.name}} has {{item.weight}}kg.</p>
+                                <small><a class="text-primary">https://en.wikipedia.org/wiki/{{item.name | undercase}}</a></small>
                             </li>
                         </ul>
                     </div>
@@ -51,9 +58,9 @@
             data: {
                 title: "Dinos",
                 items: [
-                    { name: "Velo" },
-                    { name: "Trice" },
-                    { name: "Stego" }
+                    { name: "Velo", weight: 100 },
+                    { name: "Trice", weight: 200 },
+                    { name: "Stego", weight: 400 }
                 ]
             },
             methods: {
@@ -68,6 +75,22 @@
                 },
                 deleteItem: function (index) {
                     this.items.splice(index, 1);
+                }
+            },
+            filters: {
+                capitalize: function(value) {
+                    if (!value) {
+                        return;
+                    };
+                    value = value.toString();
+                    return value.charAt(0).toUpperCase() + value.slice(1);
+                }, 
+                undercase: function(value) {
+                    if (!value) {
+                        return;
+                    };
+                    value = value.toString();
+                    return value.toLowerCase();
                 }
             }
         })
