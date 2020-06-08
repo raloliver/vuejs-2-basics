@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.js 2 Basics</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div id="root" class="container">
+        <div class="row">
+            <div class="col-6 my-4">
+                <div class="card">
+                    <div class="card-header bg-warning text-white">
+                        {{title}}
+                    </div>
+                    <div class="card-body">
+                        <div class="input-group mb-3">
+                            <input id="create" type="text" class="form-control" @keypress.enter="createItem">
+                            <div class="input-group-append">
+                                <button class="input-group-text" @click="createItem">Add</button>
+                            </div>
+                        </div>
+                        <ul class="list-group">
+                            <li v-for="(item, index) in items"
+                                class="list-group-item list-group-item-action flex-column align-items-start">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">{{item.name | capitalize}}</h5>
+                                    <small><button class="btn btn-sm btn-light"
+                                            @click="deleteItem(index)">Remove</button></small>
+                                </div>
+                                <p class="mb-1">The {{item.name}} has {{item.weight}}kg.</p>
+                                <small><a class="text-primary">https://en.wikipedia.org/wiki/{{item.name | undercase}}</a></small>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#root',
+            data: {
+                title: "Dinos",
+                items: [
+                    { name: "Velo", weight: 100 },
+                    { name: "Trice", weight: 200 },
+                    { name: "Stego", weight: 400 }
+                ]
+            },
+            methods: {
+                createItem: function () {
+                    var input = document.getElementById('create');
+                    if (input.value !== '') {
+                        this.items.unshift({
+                            name: input.value
+                        });
+                        input.value = ""
+                    }
+                },
+                deleteItem: function (index) {
+                    this.items.splice(index, 1);
+                }
+            },
+            filters: {
+                capitalize: function(value) {
+                    if (!value) {
+                        return;
+                    };
+                    value = value.toString();
+                    return value.charAt(0).toUpperCase() + value.slice(1);
+                }, 
+                undercase: function(value) {
+                    if (!value) {
+                        return;
+                    };
+                    value = value.toString();
+                    return value.toLowerCase();
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
