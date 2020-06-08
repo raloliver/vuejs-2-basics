@@ -17,6 +17,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"></script>
 </head>
 
 <body>
@@ -29,9 +30,12 @@
                     </div>
                     <div class="card-body">
                         <div class="input-group mb-3">
-                            <input id="create" type="text" class="form-control" @keypress.enter="createItem">
+                            <input id="create" type="text" class="form-control" @keypress.enter="createItem"
+                                v-model="input">
                             <div class="input-group-append">
-                                <button class="input-group-text" @click="createItem">Add</button>
+                                <button class="input-group-text" @click="createItem" :disabled="buttonDisabled">
+                                    {{ buttonText }}
+                                </button>
                             </div>
                         </div>
                         <ul class="list-group mb-3">
@@ -82,8 +86,10 @@
                     { name: "Trice", weight: 200, quantity: 6 },
                     { name: "Stego", weight: 400, quantity: 3 }
                 ],
-                dinosUpdated: 0, 
-                speciesUpdated: 0
+                dinosUpdated: 0,
+                speciesUpdated: 0,
+                input: "",
+                buttonText: "Add"
             },
             methods: {
                 createItem: function () {
@@ -118,6 +124,9 @@
                 }
             },
             computed: {
+                buttonDisabled: function () {
+                    return this.input == "";
+                },
                 totalDinos: function () {
                     this.dinosUpdated += 1;
                     let total = 0;
@@ -132,6 +141,11 @@
                     this.speciesUpdated += 1;
                     return this.items.length;
                 }
+            },
+            watch: {
+                input: _.debounce(function () {
+                    this.buttonText = this.input !== "" ? "Add " + this.input : "Add";
+                })
             }
         })
     </script>
