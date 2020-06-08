@@ -39,13 +39,15 @@
                                 class="list-group-item list-group-item-action flex-column align-items-start">
                                 <div class="d-flex w-100 justify-content-between">
                                     <div class="btn-group" role="group" aria-label="Quantity">
-                                        <button type="button" class="btn btn-sm btn-secondary">+</button>
-                                        <button type="button" class="btn btn-sm btn-ligth disabled">5</button>
-                                        <button type="button" class="btn btn-sm btn-secondary">-</button>
+                                        <button type="button" class="btn btn-sm btn-secondary"
+                                            v-on:click="item.quantity += 1">+</button>
+                                        <button type="button"
+                                            class="btn btn-sm btn-ligth disabled">{{item.quantity}}</button>
+                                        <button type="button" class="btn btn-sm btn-secondary"
+                                            v-on:click="item.quantity -= 1">-</button>
                                     </div>
                                     <h5 class="mb-1">{{item.name | capitalize}}</h5>
                                     <div class="btn-group" role="group" aria-label="Actions">
-                                        <button class="btn btn-sm btn-light" @click="deleteItem(index)">-</button>
                                         <button class="btn btn-sm btn-light" @click="deleteItem(index)">x</button>
                                     </div>
                                 </div>
@@ -56,12 +58,12 @@
                         </ul>
                         <ul class="list-group">
                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                Total Dinosaurs
-                                <span class="badge badge-light badge-pill">14</span>
+                                Total Dinosaurs <small>{{totalDinos}}</small>
+                                <span class="badge badge-light badge-pill">Updated: {{dinosUpdated}}</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                Total Species
-                                <span class="badge badge-light badge-pill">2</span>
+                                Total Species <small>{{totalSpecies}}</small>
+                                <span class="badge badge-light badge-pill">Updated: {{speciesUpdated}}</span>
                             </li>
                         </ul>
                     </div>
@@ -76,17 +78,21 @@
             data: {
                 title: "Dinos",
                 items: [
-                    { name: "Velo", weight: 100 },
-                    { name: "Trice", weight: 200 },
-                    { name: "Stego", weight: 400 }
-                ]
+                    { name: "Velo", weight: 100, quantity: 5 },
+                    { name: "Trice", weight: 200, quantity: 6 },
+                    { name: "Stego", weight: 400, quantity: 3 }
+                ],
+                dinosUpdated: 0, 
+                speciesUpdated: 0
             },
             methods: {
                 createItem: function () {
                     var input = document.getElementById('create');
                     if (input.value !== '') {
                         this.items.unshift({
-                            name: input.value
+                            name: input.value,
+                            weight: Math.ceil(Math.random() * 1000),
+                            quantity: 1
                         });
                         input.value = ""
                     }
@@ -109,6 +115,22 @@
                     };
                     value = value.toString();
                     return value.toLowerCase();
+                }
+            },
+            computed: {
+                totalDinos: function () {
+                    this.dinosUpdated += 1;
+                    let total = 0;
+                    let items = this.items;
+
+                    for (const i in items) {
+                        total += items[i].quantity;
+                    }
+                    return total;
+                },
+                totalSpecies: function () {
+                    this.speciesUpdated += 1;
+                    return this.items.length;
                 }
             }
         })
