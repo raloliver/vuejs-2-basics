@@ -34,34 +34,16 @@
                                 <button class="input-group-text" @click="createItem">Add</button>
                             </div>
                         </div>
-                        <ul class="list-group mb-3">
+                        <ul class="list-group">
                             <li v-for="(item, index) in items"
                                 class="list-group-item list-group-item-action flex-column align-items-start">
                                 <div class="d-flex w-100 justify-content-between">
-                                    <div class="btn-group" role="group" aria-label="Quantity">
-                                        <button type="button" class="btn btn-sm btn-secondary">+</button>
-                                        <button type="button" class="btn btn-sm btn-ligth disabled">5</button>
-                                        <button type="button" class="btn btn-sm btn-secondary">-</button>
-                                    </div>
                                     <h5 class="mb-1">{{item.name | capitalize}}</h5>
-                                    <div class="btn-group" role="group" aria-label="Actions">
-                                        <button class="btn btn-sm btn-light" @click="deleteItem(index)">-</button>
-                                        <button class="btn btn-sm btn-light" @click="deleteItem(index)">x</button>
-                                    </div>
+                                    <small><button class="btn btn-sm btn-light"
+                                            @click="deleteItem(index)">Remove</button></small>
                                 </div>
                                 <p class="mb-1">The {{item.name}} has {{item.weight}}kg.</p>
-                                <small><a
-                                        class="text-primary">https://en.wikipedia.org/wiki/{{item.name | undercase}}</a></small>
-                            </li>
-                        </ul>
-                        <ul class="list-group">
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                Total Dinosaurs
-                                <span class="badge badge-light badge-pill">14</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                Total Species
-                                <span class="badge badge-light badge-pill">2</span>
+                                <small><a class="text-primary">https://en.wikipedia.org/wiki/{{item.name | undercase}}</a></small>
                             </li>
                         </ul>
                     </div>
@@ -96,14 +78,14 @@
                 }
             },
             filters: {
-                capitalize: function (value) {
+                capitalize: function(value) {
                     if (!value) {
                         return;
                     };
                     value = value.toString();
                     return value.charAt(0).toUpperCase() + value.slice(1);
-                },
-                undercase: function (value) {
+                }, 
+                undercase: function(value) {
                     if (!value) {
                         return;
                     };
